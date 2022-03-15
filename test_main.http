@@ -1,0 +1,151 @@
+### Root path which redirects to documentation page
+GET http://localhost:8000/
+Accept: application/json
+
+### Get apportionment data full
+GET http://localhost:8000/apportionment/
+Accept: application/json
+
+### Get apportionment data by state
+GET http://localhost:8000/apportionment/state/?state=maryland
+Accept: application/json
+
+### Get apportionment data by state
+GET http://localhost:8000/apportionment/state/?state=dc
+Accept: application/json
+
+### Get apportionment data by state
+GET http://localhost:8000/apportionment/state/?state=connecticut
+Accept: application/json
+
+### Get apportionment data by year
+GET http://localhost:8000/apportionment/year/?year=1930
+Accept: application/json
+
+### Get apportionment data by year
+GET http://localhost:8000/apportionment/year/?year=2021
+Accept: application/json
+
+### Get apportionment data by year
+GET http://localhost:8000/apportionment/year/?year=1925
+Accept: application/json
+
+### Get apportionment data by population size - greater
+GET http://localhost:8000/apportionment/pop-greater/?pop=5346279
+Accept: application/json
+
+### Get apportionment data by population size - greater
+GET http://localhost:8000/apportionment/pop-greater/?pop=-20
+Accept: application/json
+
+### Get apportionment data by population size - greater
+GET http://localhost:8000/apportionment/pop-greater/?pop=534627912312
+Accept: application/json
+
+### Get apportionment data by population size - less
+GET http://localhost:8000/apportionment/pop-less/?pop=5346279
+Accept: application/json
+
+### Get apportionment data by population size - less
+GET http://localhost:8000/apportionment/pop-less/?pop=-20
+Accept: application/json
+
+### Get apportionment data by population size - less
+GET http://localhost:8000/apportionment/pop-less/?pop=534627912312
+Accept: application/json
+
+### Get apportionment data by rep number - greater
+GET http://localhost:8000/apportionment/rep-greater/?rep=25
+Accept: application/json
+
+### Get apportionment data by rep number - greater
+GET http://localhost:8000/apportionment/rep-greater/?rep=-2
+Accept: application/json
+
+### Get apportionment data by rep number - greater
+GET http://localhost:8000/apportionment/rep-greater/?rep=103
+Accept: application/json
+
+### Get apportionment data by rep number - less
+GET http://localhost:8000/apportionment/rep-less/?rep=25
+Accept: application/json
+
+### Get apportionment data by rep number - less
+GET http://localhost:8000/apportionment/rep-less/?rep=-2
+Accept: application/json
+
+### Get apportionment data by rep number - less
+GET http://localhost:8000/apportionment/rep-less/?rep=102
+Accept: application/json
+
+### Get total Itemized Taxes
+GET http://localhost:8000/itemized-taxes/
+Accept: application/json
+
+### Get itemized taxes by state
+GET http://localhost:8000/itemized-taxes/state/?state=maryland
+Accept: application/json
+
+### Get itemized taxes by state
+GET http://localhost:8000/itemized-taxes/state/?state=dc
+Accept: application/json
+
+### Get itemized taxes by state
+GET http://localhost:8000/itemized-taxes/state/?state=connecticut
+Accept: application/json
+
+### Get itemized taxes by total taxes - greater
+GET http://localhost:8000/itemized-taxes/total-taxes-greater/?taxes=13181560
+Accept: application/json
+
+### Get itemized taxes by total taxes - greater
+GET http://localhost:8000/itemized-taxes/total-taxes-greater/?taxes=118156
+Accept: application/json
+
+### Get itemized taxes by total taxes - greater
+GET http://localhost:8000/itemized-taxes/total-taxes-greater/?taxes=10933743020
+Accept: application/json
+
+### Get itemized taxes by total taxes - less
+GET http://localhost:8000/itemized-taxes/total-taxes-less/?taxes=13181560
+Accept: application/json
+
+### Get itemized taxes by total taxes - less
+GET http://localhost:8000/itemized-taxes/total-taxes-less/?taxes=118156
+Accept: application/json
+
+### Get itemized taxes by total taxes - less
+GET http://localhost:8000/itemized-taxes/total-taxes-less/?taxes=10933743020
+Accept: application/json
+
+### Get itemized taxes by year
+GET http://localhost:8000/itemized-taxes/year/?year=2020
+Accept: application/json
+
+### Get itemized taxes by year
+GET http://localhost:8000/itemized-taxes/year/?year=1920
+Accept: application/json
+
+### Get itemized taxes by year
+GET http://localhost:8000/itemized-taxes/year/?year=320
+Accept: application/json
+
+### Get unemployment county data in full
+GET http://localhost:8000/unemployment-county/
+Accept: application/json
+
+### Get fip codes in full
+GET http://localhost:8000/unemployment-county/fip/
+Accept: application/json
+
+### Get unemployment county data by fip code
+GET http://localhost:8000/unemployment-county/fip/?fip=10010
+Accept: application/json
+
+### Get unemployment county data by fip code
+GET http://localhost:8000/unemployment-county/fip/?fip=-20
+Accept: application/json
+
+### Get unemployment county data by fip code
+GET http://localhost:8000/unemployment-county/fip/?fip=560450
+Accept: application/json
