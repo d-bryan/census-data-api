@@ -32,4 +32,5 @@ async def root():
     Redirect to the documentation page for understanding of all routes and usage
     :return: Redirect
     """
-    return os.getenv("DOMAIN_NAME") + "docs"
+    return os.environ["DOMAIN_NAME"] + "docs"
+    # return os.getenv("DOMAIN_NAME") + "docs"
