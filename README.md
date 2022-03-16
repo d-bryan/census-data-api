@@ -39,7 +39,7 @@ https://census-bureau-data.herokuapp.com/apportionment/reps-less/
 
 #### Example Queries
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/apportionment/state/?state=maryland
 
 https://census-bureau-data.herokuapp.com/apportionment/year/?year=1950
@@ -55,7 +55,7 @@ https://census-bureau-data.herokuapp.com/apportionment/reps-less/?reps=25
 
 ### Itemized Taxes
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/itemized-taxes/
 
 https://census-bureau-data.herokuapp.com/itemized-taxes/year/
@@ -69,7 +69,7 @@ https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-less/
 
 #### Example Queries
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/itemized-taxes/year/?year=2020
 
 https://census-bureau-data.herokuapp.com/itemized-taxes/state/?state=maryland
@@ -81,7 +81,7 @@ https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-less/?taxes=
 
 ### Unemployment County
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/unemployment-county/
 
 https://census-bureau-data.herokuapp.com/unemployment-county/fip/
@@ -91,7 +91,7 @@ https://census-bureau-data.herokuapp.com/unemployment-county/total-fip/
 
 #### Example Queries 
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/unemployment-county/fip/?fip=10005
 ```
 
