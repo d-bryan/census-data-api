@@ -1,0 +1,96 @@
+# Census Bureau Data REST API
+
+## Description
+
+The Census Bureau Data REST API is used for retrieving data that has been gathered from the Census.
+Various types of information about the United States, Apportionment about state population over time,
+FIP Codes are the state and county designated FIP codes, Itemized Taxes are collected taxes over time,
+and Unemployment County is unemployment rate by state and county in the United States.
+
+## Routes
+
+### Root Route
+
+Returns to the documentation page, as there is no retrievable data on the root route. Helping the user to learn how
+the application works.
+
+For all routes below substitute `YOUR_DOMAIN_NAME` with the host you are running the application on
+or `localhost:8000` or `127.0.0.1:8000`
+
+### Apportionment
+
+```http request
+http://[YOUR_DOMAIN_NAME]/apportionment/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/state/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/year/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/pop-greater/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/pop-less/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/reps-greater/
+
+http://[YOUR_DOMAIN_NAME]/apportionment/reps-less/
+```
+
+### Itemized Taxes
+
+```http request
+http://[YOUR_DOMAIN_NAME]/itemized-taxes/
+
+http://[YOUR_DOMAIN_NAME]/itemized-taxes/year/
+
+http://[YOUR_DOMAIN_NAME]/itemized-taxes/state/
+
+http://[YOUR_DOMAIN_NAME]/itemized-taxes/total-taxes-greater/
+
+http://[YOUR_DOMAIN_NAME]/itemized-taxes/total-taxes-less/
+```
+
+### Unemployment County
+
+```http request
+http://[YOUR_DOMAIN_NAME]/unemployment-county/
+
+http://[YOUR_DOMAIN_NAME]/unemployment-county/fip/
+
+http://[YOUR_DOMAIN_NAME]/unemployment-county/total-fip/
+```
+
+## Database
+
+There are four tables in the database as described below:
+
+### apportionment
+
+| id  | st  | pop | num_reps | seat_change | avg_per_rep | yr  |
+|-----|-----|-----|----------|-------------|-------------|-----|
+
+
+### fip_codes
+
+| id  | full_fips | state_fips | county_fips | county | st  |
+|-----|-----------|------------|-------------|--------|-----|
+
+
+### itemized_taxes
+
+| id  | st  | yr  | total_taxes  | property_taxes  | sales_and_gross_receipts_taxes  | general_sales_and_gross_receipts_taxes  | selective_sales_and_gross_receipts_taxes  | alcoholic_beverages_sales_tax  | amusements_sales_tax  | insurance_premiums_sales_tax  | motor_fuels_sales_tax  | pari_mutuels_sales_tax  | public_utilities_sales_tax  | tobacco_products_sales_tax  | other_selective_sales_and_gross_receipts_taxes  | license_taxes  | alcoholic_beverages_license  | amusements_license  | corporations_in_general_license  | hunting_and_fishing_license  | motor_vehicle_license  | motor_vehicle_operators_license  | public_utilities_license  | occupation_and_business_license_nec  | other_license_taxes  | income_taxes  | individual_income_taxes  | corporations_net_income_taxes  | other_taxes | death_and_gift_taxes | documentarty_and_stock_transfer_taxes | severance_taxes | taxes_nec |
+|-----|-----|-----|--------------|-----------------|---------------------------------|-----------------------------------------|-------------------------------------------|--------------------------------|-----------------------|-------------------------------|------------------------|-------------------------|-----------------------------|-----------------------------|-------------------------------------------------|----------------|------------------------------|---------------------|----------------------------------|------------------------------|------------------------|----------------------------------|---------------------------|--------------------------------------|----------------------|---------------|--------------------------|--------------------------------|-------------|----------------------|---------------------------------------|-----------------|-----------|
+
+### unemployment_county
+
+| id  | full_fips | state_fips | county_fips | county_name_state | yr  | labor_force | employed | unemployed | rate |
+|-----|-----------|------------|-------------|-------------------|-----|-------------|----------|------------|------|
+
+
+## Environment Variables
+
+You will need to set the following environment variables in your `.env` file for the application to work
+
+```text
+ALLOWED_ORIGINS="EXAMPLE ORIGINS FOR CORS"
+```
+

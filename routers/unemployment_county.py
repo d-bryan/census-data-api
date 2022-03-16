@@ -18,7 +18,7 @@ async def total():
     return crud.get_unemployment_full()
 
 
-@router.get('/fip')
+@router.get('/total-fip/')
 async def total_fip():
     """
     Retrieve fip codes by in full
