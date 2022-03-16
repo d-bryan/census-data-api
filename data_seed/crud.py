@@ -1,4 +1,4 @@
-from data_seed.populate_data import connect_database, db_full_path
+from data_seed import connect_database, db_full_path
 from . import schema
 
 conn = connect_database(db_full_path)

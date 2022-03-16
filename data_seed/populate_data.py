@@ -1,15 +1,15 @@
-# import sqlite3
-# import os
-# import pandas as pd
-# from dotenv import load_dotenv
-# from sqlite3 import Error
-# # load environment variables
-# load_dotenv()
-# # ensure absolute paths are used from content root
-# db_name = os.getenv("DB_NAME")
-# working_directory = os.getcwd()
-# db_full_path = f'{working_directory}/{db_name}'
-# # create dictionaries for later use
+import sqlite3
+import os
+import pandas as pd
+from dotenv import load_dotenv
+from sqlite3 import Error
+# load environment variables
+load_dotenv()
+# ensure absolute paths are used from content root
+db_name = os.getenv("DB_NAME")
+working_directory = os.getcwd()
+db_full_path = f'{working_directory}/{db_name}'
+# create dictionaries for later use
 # apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("APPORTIONMENT_CSV")}')
 # fips_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("FIPS_CODES_CSV")}')
 # unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("COUNTY_UNEMPLOYMENT_RATE_CSV")}')
@@ -54,24 +54,24 @@
 #     'table_size': 104,
 #     'name': 'itemized_taxes'
 # }
-#
-#
-# def connect_database(database):
-#     """
-#     Create the database if it does not exist
-#     and establish a connection to it
-#     :param database: path to the database
-#     :return: Database connection object or none
-#     """
-#     conn = None
-#     try:
-#         conn = sqlite3.connect(database)
-#         return conn
-#     except Error as e:
-#         print(e)
-#
-#     return conn
-#
+
+
+def connect_database(database):
+    """
+    Create the database if it does not exist
+    and establish a connection to it
+    :param database: path to the database
+    :return: Database connection object or none
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(database)
+        return conn
+    except Error as e:
+        print(e)
+
+    return conn
+
 #
 # def create_table(conn, create_table_sql):
 #     """
