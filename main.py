@@ -9,15 +9,15 @@ from routers import apportionment, itemized_taxes, unemployment_county
 load_dotenv()
 
 app = FastAPI()
-# trusted_origins = os.getenv("ALLOWED_ORIGINS").split(",")
+trusted_origins = os.getenv("ALLOWED_ORIGINS").split(",")
 # trusted_hosts = os.getenv("ALLOWED_HOSTS").split(",")
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=trusted_origins,
-#     allow_credentials=False,
-#     allow_methods=["GET"],
-#     allow_headers=["*"]
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=trusted_origins,
+    allow_credentials=False,
+    allow_methods=["GET"],
+    allow_headers=["*"]
+)
 # app.add_middleware(TrustedHostMiddleware, allowed_hosts=trusted_hosts)
 app.include_router(apportionment.router)
 app.include_router(itemized_taxes.router)
