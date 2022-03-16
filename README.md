@@ -7,6 +7,8 @@ Various types of information about the United States, Apportionment about state 
 FIP Codes are the state and county designated FIP codes, Itemized Taxes are collected taxes over time,
 and Unemployment County is unemployment rate by state and county in the United States.
 
+[Live Demo of the API](https://census-bureau-data.herokuapp.com/)
+
 ## Routes
 
 ### Root Route
@@ -14,49 +16,83 @@ and Unemployment County is unemployment rate by state and county in the United S
 Returns to the documentation page, as there is no retrievable data on the root route. Helping the user to learn how
 the application works.
 
-For all routes below substitute `YOUR_DOMAIN_NAME` with the host you are running the application on
+For all routes below substitute `census-bureau-data.herokuapp.com` with the host you are running the application on
 or `localhost:8000` or `127.0.0.1:8000`
 
 ### Apportionment
 
 ```http request
-http://[YOUR_DOMAIN_NAME]/apportionment/
+https://census-bureau-data.herokuapp.com/apportionment/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/state/
+https://census-bureau-data.herokuapp.com/apportionment/state/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/year/
+https://census-bureau-data.herokuapp.com/apportionment/year/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/pop-greater/
+https://census-bureau-data.herokuapp.com/apportionment/pop-greater/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/pop-less/
+https://census-bureau-data.herokuapp.com/apportionment/pop-less/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/reps-greater/
+https://census-bureau-data.herokuapp.com/apportionment/reps-greater/
 
-http://[YOUR_DOMAIN_NAME]/apportionment/reps-less/
+https://census-bureau-data.herokuapp.com/apportionment/reps-less/
+```
+
+#### Example Queries
+
+```http request
+https://census-bureau-data.herokuapp.com/apportionment/state/?state=maryland
+
+https://census-bureau-data.herokuapp.com/apportionment/year/?year=1950
+
+https://census-bureau-data.herokuapp.com/apportionment/pop-greater/?pop=5346279
+
+https://census-bureau-data.herokuapp.com/apportionment/pop-less/?pop=5346279
+
+https://census-bureau-data.herokuapp.com/apportionment/reps-greater/?reps=25
+
+https://census-bureau-data.herokuapp.com/apportionment/reps-less/?reps=25
 ```
 
 ### Itemized Taxes
 
 ```http request
-http://[YOUR_DOMAIN_NAME]/itemized-taxes/
+https://census-bureau-data.herokuapp.com/itemized-taxes/
 
-http://[YOUR_DOMAIN_NAME]/itemized-taxes/year/
+https://census-bureau-data.herokuapp.com/itemized-taxes/year/
 
-http://[YOUR_DOMAIN_NAME]/itemized-taxes/state/
+https://census-bureau-data.herokuapp.com/itemized-taxes/state/
 
-http://[YOUR_DOMAIN_NAME]/itemized-taxes/total-taxes-greater/
+https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-greater/
 
-http://[YOUR_DOMAIN_NAME]/itemized-taxes/total-taxes-less/
+https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-less/
+```
+
+#### Example Queries
+
+```http request
+https://census-bureau-data.herokuapp.com/itemized-taxes/year/?year=2020
+
+https://census-bureau-data.herokuapp.com/itemized-taxes/state/?state=maryland
+
+https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-greater/?taxes=13181560
+
+https://census-bureau-data.herokuapp.com/itemized-taxes/total-taxes-less/?taxes=13181560
 ```
 
 ### Unemployment County
 
 ```http request
-http://[YOUR_DOMAIN_NAME]/unemployment-county/
+https://census-bureau-data.herokuapp.com/unemployment-county/
 
-http://[YOUR_DOMAIN_NAME]/unemployment-county/fip/
+https://census-bureau-data.herokuapp.com/unemployment-county/fip/
 
-http://[YOUR_DOMAIN_NAME]/unemployment-county/total-fip/
+https://census-bureau-data.herokuapp.com/unemployment-county/total-fip/
+```
+
+#### Example Queries 
+
+```http request
+https://census-bureau-data.herokuapp.com/unemployment-county/fip/?fip=10005
 ```
 
 ## Database
