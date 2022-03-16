@@ -21,7 +21,7 @@ or `localhost:8000` or `127.0.0.1:8000`
 
 ### Apportionment
 
-```http request
+```text
 https://census-bureau-data.herokuapp.com/apportionment/
 
 https://census-bureau-data.herokuapp.com/apportionment/state/
