@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        echo ""Installing dependencies and caching them."
+        echo "Installing dependencies and caching them."
         python -m pip install --upgrade pip
         pip install pylint
         
