@@ -34,7 +34,8 @@ async def unemployment_county_range(
         raise HTTPException(400, "Too many arguments in the query, max is two")
     return crud.get_by_range(start_id=id_range['q'][0],
                              end_id=id_range['q'][1],
-                             select=f"SELECT * FROM unemployment_county WHERE id BETWEEN {id_range['q'][0]} "
+                             select=f"SELECT * FROM unemployment_county "
+                                    f"WHERE id BETWEEN {id_range['q'][0]} "
                                     f"AND {id_range['q'][1]} ORDER BY id",
                              schema_type=schema.UnemploymentCounty)
 

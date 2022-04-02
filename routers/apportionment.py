@@ -17,7 +17,8 @@ async def total():
 
     :return: List of dictionary items
     """
-    return crud.get_all_items(select='SELECT * FROM apportionment', schema_type=schema.Apportionment)
+    return crud.get_all_items(select='SELECT * FROM apportionment',
+                              schema_type=schema.Apportionment)
 
 
 @router.get('/state/')
@@ -46,7 +47,8 @@ async def by_year(
         year: int = Query(
             ...,
             title="Year Value",
-            description="Query the database for the year in question, must be increments of 10 | min=1930 max=2020",
+            description="Query the database for the year in question, "
+                        "must be increments of 10 | min=1930 max=2020",
             ge=1930,
             le=2020,
             example="1950"

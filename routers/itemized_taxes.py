@@ -15,7 +15,8 @@ async def total():
 
     :return: List of dictionaries
     """
-    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes", schema_type=schema.ItemizedTaxes)
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes",
+                              schema_type=schema.ItemizedTaxes)
 
 
 @router.get('/state/')
@@ -102,4 +103,3 @@ async def by_total_taxes_less(
     """
     return crud.get_all_items(select=f"SELECT * FROM itemized_taxes WHERE total_taxes <= {taxes}",
                               schema_type=schema.ItemizedTaxes)
-
