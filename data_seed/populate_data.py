@@ -1,24 +1,24 @@
 import sqlite3
 import os
 import pandas as pd
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from sqlite3 import Error
 # load environment variables
-# load_dotenv()
+load_dotenv()
 # ensure absolute paths are used from content root
-# db_name = os.getenv("DB_NAME")
-db_name = os.environ["DB_NAME"]
+db_name = os.getenv("DB_NAME")
+# db_name = os.environ["DB_NAME"]
 working_directory = os.getcwd()
 db_full_path = f'{working_directory}/{db_name}'
 # create dictionaries for later use
-# apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("APPORTIONMENT_CSV")}')
-apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["APPORTIONMENT_CSV"]}')
-# fips_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("FIPS_CODES_CSV")}')
-fips_data = pd.read_csv(f'{os.getcwd()}/{os.environ["FIPS_CODES_CSV"]}')
-# unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("COUNTY_UNEMPLOYMENT_RATE_CSV")}')
-unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["COUNTY_UNEMPLOYMENT_RATE_CSV"]}')
-# itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("ITEMIZED_STATE_TAXES_CSV")}')
-itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.environ["ITEMIZED_STATE_TAXES_CSV"]}')
+apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("APPORTIONMENT_CSV")}')
+# apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["APPORTIONMENT_CSV"]}')
+fips_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("FIPS_CODES_CSV")}')
+# fips_data = pd.read_csv(f'{os.getcwd()}/{os.environ["FIPS_CODES_CSV"]}')
+unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("COUNTY_UNEMPLOYMENT_RATE_CSV")}')
+# unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["COUNTY_UNEMPLOYMENT_RATE_CSV"]}')
+itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("ITEMIZED_STATE_TAXES_CSV")}')
+# itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.environ["ITEMIZED_STATE_TAXES_CSV"]}')
 apportionment_dict = {
     'data': apportionment_data,
     'sql': """INSERT INTO apportionment (st,pop,num_reps,seat_change,avg_per_rep,yr)

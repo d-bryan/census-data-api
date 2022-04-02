@@ -9,8 +9,8 @@ from routers import apportionment, itemized_taxes, unemployment_county
 load_dotenv()
 
 app = FastAPI()
-# trusted_origins = os.getenv("ALLOWED_ORIGINS").split(",")
-trusted_origins = os.environ["ALLOWED_ORIGINS"].split(",")
+trusted_origins = os.getenv("ALLOWED_ORIGINS").split(",")
+# trusted_origins = os.environ["ALLOWED_ORIGINS"].split(",")
 # trusted_hosts = os.getenv("ALLOWED_HOSTS").split(",")
 # trusted_hosts = os.environ["ALLOWED_HOSTS"].split(",")
 app.add_middleware(
@@ -32,5 +32,5 @@ async def root():
     Redirect to the documentation page for understanding of all routes and usage
     :return: Redirect
     """
-    return os.environ["DOMAIN_NAME"] + "docs"
-    # return os.getenv("DOMAIN_NAME") + "docs"
+    # return os.environ["DOMAIN_NAME"] + "docs"
+    return os.getenv("DOMAIN_NAME") + "docs"

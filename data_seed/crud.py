@@ -1,5 +1,5 @@
+from fastapi import HTTPException
 from data_seed.populate_data import connect_database, db_full_path
-from . import schema
 
 conn = connect_database(db_full_path)
 
@@ -30,171 +30,64 @@ def add_items(**kwargs):
     return result
 
 
-# APPORTIONMENT START
-def get_apportionment_total():
+# MIDDLEWARE
+def qualify_size(**kwargs):
     """
-    Retrieve total rows from apportionment table
+    Qualify the size of the data based on the parameters
+    :param kwargs: start_id, end_id, difference
+    :return: void
+    """
+    if kwargs['difference'] > 250:
+        raise HTTPException(413, "Payload size too large")
+    else:
+        if kwargs['end_id'] < kwargs['start_id']:
+            raise HTTPException(400, "End ID must be larger than starting ID")
+        elif kwargs['start_id'] > kwargs['end_id']:
+            raise HTTPException(400, "Start ID must be smaller than ending ID")
+        elif kwargs['start_id'] <= 0:
+            raise HTTPException(400, "Start ID must be greater than 0")
+        elif kwargs['end_id'] >= 3142:
+            raise HTTPException(400, "End ID must be smaller than max table size")
+
+
+def qualify_fip(**kwargs):
+    """
+    Qualify the size of the data based on the parameters
+    :param kwargs: fip
+    :return: void
+    """
+    if kwargs['fip'] > 56045:
+        raise HTTPException(400, "FIP must be smaller than max table size")
+    elif kwargs['fip'] <= 1001:
+        raise HTTPException(400, "FIP must be greater than 0")
+
+
+def get_all_items(**kwargs):
+    """
+    Retrieve all items from database
+    :param kwargs: select, schema_type
     :return: List
     """
-    return add_items(select='SELECT * FROM apportionment',
-                     schema_type=schema.Apportionment)
+    return add_items(select=kwargs['select'], schema_type=kwargs['schema_type'])
 
 
-def get_apportionment_by_state(state: str):
+def get_by_range(**kwargs):
     """
-    Retrieve apportionment data by state
-    :param state: STRING state
+    Retrieve data by range
+    :param kwargs: **kwargs
     :return: List
     """
-    return add_items(select=f"SELECT * FROM apportionment WHERE st = '{state}'",
-                     schema_type=schema.Apportionment)
+    qualify_size(start_id=int(kwargs['start_id']),
+                 end_id=int(kwargs['end_id']),
+                 difference=int(kwargs['end_id']) - int(kwargs['start_id']))
+    return add_items(select=kwargs['select'], schema_type=kwargs['schema_type'])
 
 
-def get_apportionment_by_population_greater(pop: int):
+def get_fip(**kwargs):
     """
-    Retrieve apportionment data by population - must be greater than
-    :param pop: population size
+    Retrieve data by specific item
+    :param kwargs: **kwargs
     :return: List
     """
-    return add_items(select=f"SELECT * FROM apportionment WHERE pop >= {pop}",
-                     schema_type=schema.Apportionment)
-
-
-def get_apportionment_by_population_less(pop: int):
-    """
-    Retrieve apportionment data by population - must be less than
-    :param pop: population size
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM apportionment WHERE pop <= {pop}",
-                     schema_type=schema.Apportionment)
-
-
-def get_apportionment_by_num_reps_greater(reps: int):
-    """
-    Retrieve apportionment data by number of reps - must be greater than
-    :param reps: number of reps
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM apportionment WHERE num_reps >= {reps}",
-                     schema_type=schema.Apportionment)
-
-
-def get_apportionment_by_num_reps_less(reps: int):
-    """
-    Retrieve apportionment data by number of reps - must be less than
-    :param reps: number of reps
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM apportionment WHERE num_reps <= {reps}",
-                     schema_type=schema.Apportionment)
-
-
-def get_apportionment_by_year(year: int):
-    """
-    Retrieve apportionment data by year
-    :param year: year
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM apportionment WHERE yr = {year}",
-                     schema_type=schema.Apportionment)
-
-
-# FIP CODES START
-def get_full_fip():
-    """
-    Retrieve fip codes by in full
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM fip_codes",
-                     schema_type=schema.FipCodes)
-
-
-def get_fip_by_state(state: str):
-    """
-    Retrieve fip codes by state
-    :param state: STRING state
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM fip_codes WHERE st = '{state}'",
-                     schema_type=schema.FipCodes)
-
-
-def get_fip_by_county(county: str):
-    """
-    Retrieve fip codes by county
-    :param county: STRING county
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM fip_codes WHERE county = '{county}'",
-                     schema_type=schema.FipCodes)
-
-
-# UNEMPLOYMENT START
-def get_unemployment_full():
-    """
-    Retrieve unemployment data in full
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM unemployment_county",
-                     schema_type=schema.UnemploymentCounty)
-
-
-def get_unemployment_by_fip(fip: int):
-    """
-    Retrieve unemployment data by fip code
-    :param fip: FIP code
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM unemployment_county WHERE full_fips = {fip}",
-                     schema_type=schema.UnemploymentCounty)
-
-
-# ITEMIZED TAXES START
-def get_itemized_taxes_full():
-    """
-    Retrieve itemized taxes in full
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM itemized_taxes",
-                     schema_type=schema.ItemizedTaxes)
-
-
-def get_itemized_taxes_by_state(state: str):
-    """
-    Retrieve itemized taxes by state
-    :param state: STRING state
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM itemized_taxes WHERE st = '{state}'",
-                     schema_type=schema.ItemizedTaxes)
-
-
-def get_itemized_taxes_by_year(year: int):
-    """
-    Retrieve itemized taxes by year
-    :param year: INTEGER year
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM itemized_taxes WHERE yr = {year}",
-                     schema_type=schema.ItemizedTaxes)
-
-
-def get_itemized_taxes_by_total_taxes_greater(total: int):
-    """
-    Retrieve itemized taxes by total taxes - must be greater than
-    :param total: INTEGER total taxes
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM itemized_taxes WHERE total_taxes >= {total}",
-                     schema_type=schema.ItemizedTaxes)
-
-
-def get_itemized_taxes_by_total_taxes_less(total: int):
-    """
-    Retrieve itemized taxes by total taxes - must be less than
-    :param total: INTEGER total taxes
-    :return: List
-    """
-    return add_items(select=f"SELECT * FROM itemized_taxes WHERE total_taxes <= {total}",
-                     schema_type=schema.ItemizedTaxes)
+    qualify_fip(fip=int(kwargs['fip']))
+    return add_items(select=kwargs['select'], schema_type=kwargs['schema_type'])
