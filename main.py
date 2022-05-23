@@ -15,12 +15,12 @@ app = FastAPI()
 # trusted_hosts = os.getenv("ALLOWED_HOSTS").split(",")
 
 # for production code only
-trusted_origins = os.environ["ALLOWED_ORIGINS"].split(",")
+# trusted_origins = os.environ["ALLOWED_ORIGINS"].split(",")
 trusted_hosts = os.environ["ALLOWED_HOSTS"].split(",")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=trusted_origins,
+    allow_origin_regex='https://.*[\.]netlify\.app/?.*',
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["*"]
