@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query
-from data_seed import crud
+from data_seed import crud, schema
 
 router = APIRouter(
     prefix='/itemized-taxes',
@@ -15,7 +15,8 @@ async def total():
 
     :return: List of dictionaries
     """
-    return crud.get_itemized_taxes_full()
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes",
+                              schema_type=schema.ItemizedTaxes)
 
 
 @router.get('/state/')
@@ -35,7 +36,8 @@ async def by_state(
     :param state: state
     :return: List of dictionaries
     """
-    return crud.get_itemized_taxes_by_state(state)
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes WHERE st = '{state.lower()}'",
+                              schema_type=schema.ItemizedTaxes)
 
 
 @router.get('/year/')
@@ -55,7 +57,8 @@ async def by_year(
     :param year: year
     :return: List of dictionaries
     """
-    return crud.get_itemized_taxes_by_year(year)
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes WHERE yr = {year}",
+                              schema_type=schema.ItemizedTaxes)
 
 
 @router.get('/total-taxes-greater/')
@@ -76,7 +79,8 @@ async def by_total_taxes_greater(
     :param taxes: taxes
     :return: List of dictionaries
     """
-    return crud.get_itemized_taxes_by_total_taxes_greater(taxes)
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes WHERE total_taxes >= {taxes}",
+                              schema_type=schema.ItemizedTaxes)
 
 
 @router.get('/total-taxes-less/')
@@ -97,5 +101,5 @@ async def by_total_taxes_less(
     :param taxes: taxes
     :return: List of dictionaries
     """
-    return crud.get_itemized_taxes_by_total_taxes_less(taxes)
-
+    return crud.get_all_items(select=f"SELECT * FROM itemized_taxes WHERE total_taxes <= {taxes}",
+                              schema_type=schema.ItemizedTaxes)

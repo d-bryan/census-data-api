@@ -1,24 +1,25 @@
 import sqlite3
 import os
 import pandas as pd
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from sqlite3 import Error
+
 # load environment variables
-# load_dotenv()
+load_dotenv()
 # ensure absolute paths are used from content root
-# db_name = os.getenv("DB_NAME")
-db_name = os.environ["DB_NAME"]
+db_name = os.getenv("DB_NAME")
+# db_name = os.environ["DB_NAME"]
 working_directory = os.getcwd()
 db_full_path = f'{working_directory}/{db_name}'
 # create dictionaries for later use
-# apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("APPORTIONMENT_CSV")}')
-apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["APPORTIONMENT_CSV"]}')
-# fips_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("FIPS_CODES_CSV")}')
-fips_data = pd.read_csv(f'{os.getcwd()}/{os.environ["FIPS_CODES_CSV"]}')
-# unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("COUNTY_UNEMPLOYMENT_RATE_CSV")}')
-unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["COUNTY_UNEMPLOYMENT_RATE_CSV"]}')
-# itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("ITEMIZED_STATE_TAXES_CSV")}')
-itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.environ["ITEMIZED_STATE_TAXES_CSV"]}')
+apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("APPORTIONMENT_CSV")}')
+# apportionment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["APPORTIONMENT_CSV"]}')
+fips_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("FIPS_CODES_CSV")}')
+# fips_data = pd.read_csv(f'{os.getcwd()}/{os.environ["FIPS_CODES_CSV"]}')
+unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("COUNTY_UNEMPLOYMENT_RATE_CSV")}')
+# unemployment_data = pd.read_csv(f'{os.getcwd()}/{os.environ["COUNTY_UNEMPLOYMENT_RATE_CSV"]}')
+itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.getenv("ITEMIZED_STATE_TAXES_CSV")}')
+# itemized_taxes_data = pd.read_csv(f'{os.getcwd()}/{os.environ["ITEMIZED_STATE_TAXES_CSV"]}')
 apportionment_dict = {
     'data': apportionment_data,
     'sql': """INSERT INTO apportionment (st,pop,num_reps,seat_change,avg_per_rep,yr)
@@ -35,23 +36,25 @@ fips_dict = {
 }
 unemployment_dict = {
     'data': unemployment_data,
-    'sql': """INSERT INTO unemployment_county (full_fips,state_fips,county_fips,county_name_state,yr,
-    labor_force,employed,unemployed,rate)
+    'sql': """INSERT INTO unemployment_county (full_fips,state_fips,county_fips,
+    county_name_state,yr, labor_force,employed,unemployed,rate)
     VALUES(?,?,?,?,?,?,?,?,?)""",
     'table_size': 3141,
     'name': 'unemployment_county'
 }
 itemized_taxes_dict = {
     'data': itemized_taxes_data,
-    'sql': """INSERT INTO itemized_taxes (st,yr,total_taxes,property_taxes,sales_and_gross_receipts_taxes,
-    general_sales_and_gross_receipts_taxes,selective_sales_and_gross_receipts_taxes,alcoholic_beverages_sales_tax,
-    amusements_sales_tax,insurance_premiums_sales_tax,motor_fuels_sales_tax,pari_mutuels_sales_tax,
-    public_utilities_sales_tax,tobacco_products_sales_tax,other_selective_sales_and_gross_receipts_taxes,
-    license_taxes,alcoholic_beverages_license,amusements_license,corporations_in_general_license,
-    hunting_and_fishing_license,motor_vehicle_license,motor_vehicle_operators_license,public_utilities_license,
+    'sql': """INSERT INTO itemized_taxes (st,yr,total_taxes,property_taxes,
+    sales_and_gross_receipts_taxes, general_sales_and_gross_receipts_taxes,
+    selective_sales_and_gross_receipts_taxes,alcoholic_beverages_sales_tax,amusements_sales_tax,
+    insurance_premiums_sales_tax,motor_fuels_sales_tax,pari_mutuels_sales_tax,
+    public_utilities_sales_tax,tobacco_products_sales_tax,
+    other_selective_sales_and_gross_receipts_taxes,license_taxes,alcoholic_beverages_license,
+    amusements_license,corporations_in_general_license,hunting_and_fishing_license,
+    motor_vehicle_license,motor_vehicle_operators_license,public_utilities_license,
     occupation_and_business_license_nec,other_license_taxes,income_taxes,individual_income_taxes,
-    corporations_net_income_taxes,other_taxes,death_and_gift_taxes,documentarty_and_stock_transfer_taxes,
-    severance_taxes,taxes_nec)
+    corporations_net_income_taxes,other_taxes,death_and_gift_taxes,
+    documentarty_and_stock_transfer_taxes,severance_taxes,taxes_nec)
     VALUES(?,?,?,?,?,?,?,?,?,?,
     ?,?,?,?,?,?,?,?,?,?,
     ?,?,?,?,?,?,?,?,?,?,
@@ -72,8 +75,8 @@ def connect_database(database):
     try:
         conn = sqlite3.connect(database)
         return conn
-    except Error as e:
-        print(e)
+    except Error as error:
+        print(error)
 
     return conn
 
@@ -88,8 +91,8 @@ def create_table(conn, create_table_sql):
     try:
         c = conn.cursor()
         c.execute(create_table_sql)
-    except Error as e:
-        print(e)
+    except Error as error:
+        print(error)
 
 
 def create_tables():
@@ -217,7 +220,8 @@ def insert_data(**kwargs):
         return
     else:
         with conn:
-            loop_data(name=current_data['name'], df=current_data['data'], conn=conn, sql=current_data['sql'])
+            loop_data(name=current_data['name'], df=current_data['data'], conn=conn,
+                      sql=current_data['sql'])
         conn.close()
 
 
@@ -235,18 +239,23 @@ def loop_data(**kwargs):
                     row['employed'], row['unemployed'], row['rate'])
         elif kwargs['name'] == 'itemized_taxes':
             data = (row['name'], row['year'], row['total_taxes'], row['property_taxes'],
-                    row['sales_and_gross_receipts_taxes'], row['general_sales_and_gross_receipts_taxes'],
-                    row['selective_sales_and_gross_receipts_taxes'], row['alcoholic_beverages_sales_tax'],
-                    row['amusements_sales_tax'], row['insurance_premiums_sales_tax'], row['motor_fuels_sales_tax'],
-                    row['pari_mutuels_sales_tax'], row['public_utilities_sales_tax'], row['tobacco_products_sales_tax'],
+                    row['sales_and_gross_receipts_taxes'],
+                    row['general_sales_and_gross_receipts_taxes'],
+                    row['selective_sales_and_gross_receipts_taxes'],
+                    row['alcoholic_beverages_sales_tax'],
+                    row['amusements_sales_tax'], row['insurance_premiums_sales_tax'],
+                    row['motor_fuels_sales_tax'],
+                    row['pari_mutuels_sales_tax'], row['public_utilities_sales_tax'],
+                    row['tobacco_products_sales_tax'],
                     row['other_selective_sales_and_gross_receipts_taxes'], row['license_taxes'],
                     row['alcoholic_beverages_license'], row['amusements_license'],
                     row['corporations_in_general_license'], row['hunting_and_fishing_license'],
                     row['motor_vehicle_license'], row['motor_vehicle_operators_license'],
                     row['public_utilities_license'], row['occupation_and_business_license_nec'],
                     row['other_license_taxes'], row['income_taxes'], row['individual_income_taxes'],
-                    row['corporations_net_income_taxes'], row['other_taxes'], row['death_and_gift_taxes'],
-                    row['documentarty_and_stock_transfer_taxes'], row['severance_taxes'], row['taxes_nec'])
+                    row['corporations_net_income_taxes'], row['other_taxes'],
+                    row['death_and_gift_taxes'],
+                    row['documentarty_and_stock_transfer_taxes'], row['severance_taxes'],
+                    row['taxes_nec'])
         insert_item(kwargs['conn'], kwargs['sql'], data)
     print(f"{kwargs['name']} data successfully added")
-
